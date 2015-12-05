@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width initial-scale=1.0">
+	<title>Flip Memo</title>
+
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+	<main>
+		<header class="mainTop">
+			<div class="container">
+				<span class="brand">Flip Memo</span>
+			</div>
+		</header>
+		<div class="mainBottom">
+			<div class="menu">
+				<button data-value="easy">Easy</button>
+				<button data-value="hard">Hard</button>
+				<button data-value="scores" class="scores">Scores</button>
+			</div>
+			<footer>
+				<span>© Copyright Flip Memo 2015</span>
+			</footer>
+		</div>
+		<div class="gameScreen out">
+			<nav class="out">
+				<span id="level-value">LEVEL</span>
+				<span id="level">Level: <span>1</span></span>
+			</nav>
+			<div class="block-container out">
+				<div class="block-item">
+					<div class="block">
+						<figure class="front"><span>1</span></figure>
+						<figure class="back"><span>Flip Memo</span></figure>
+					</div>
+				</div>
+				<div class="block-item">
+					<div class="block">
+						<figure class="front"><span>2</span></figure>
+						<figure class="back"><span>Flip Memo</span></figure>
+					</div>
+				</div>
+				<div class="block-item">
+					<div class="block">
+						<figure class="front"><span>3</span></figure>
+						<figure class="back"><span>Flip Memo</span></figure>
+					</div>
+				</div>
+				<div class="block-item">
+					<div class="block">
+						<figure class="front"><span>4</span></figure>
+						<figure class="back"><span>Flip Memo</span></figure>
+					</div>
+				</div>
+			</div>
+			<div class="progressbar out">
+				<div class="bar"></div>
+				<button data-value="back" class="back">Menu</button>
+			</div>
+		</div>
+	</main>
+	<script src="js/main.js"></script>
+</body>
+</html>
