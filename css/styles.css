@@ -59,8 +59,13 @@ header {
   -webkit-transform: translateX(0);
   -ms-transform: translateX(0);
   transform: translateX(0);
-  -webkit-transition: -webkit-transform .01s ease-in;
-  transition: transform .01s ease-in; }
+  -webkit-transition: all .01s ease-in;
+  transition: all .01s ease-in;
+  -webkit-filter: blur(0);
+  filter: blur(0); }
+  .gameScreen.blur {
+    -webkit-filter: blur(3px);
+    filter: blur(3px); }
   .gameScreen.out {
     -webkit-transform: translateX(-100%);
     -ms-transform: translateX(-100%);
@@ -173,6 +178,38 @@ header {
       background-color: #FF5252; }
       .gameScreen .progressbar .bar.inspectingTime {
         background-color: #2196F3; }
+
+.gameOverContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: -100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-transition: top 0.5s cubic-bezier(0.37, -0.35, 0.56, 1);
+  transition: top 0.5s cubic-bezier(0.37, -0.35, 0.56, 1); }
+  .gameOverContainer.show {
+    top: 0; }
+  .gameOverContainer .gameOver {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 87%;
+    background-color: #FFF;
+    font-size: 24px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+    .gameOverContainer .gameOver p {
+      margin: 5px 0; }
+    .gameOverContainer .gameOver .title {
+      font-size: 32px;
+      font-weight: 700;
+      text-transform: uppercase; }
 
 footer {
   text-align: center;

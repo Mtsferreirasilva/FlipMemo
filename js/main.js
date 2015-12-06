@@ -136,6 +136,8 @@ var flipmemo = function(){
 						}
 						game.fm_nextToBeClicked++;
 					}else{
+						document.querySelector(".gameScreen").className = "gameScreen blur";
+						document.querySelector(".gameOverContainer").className = "gameOverContainer show";
 						console.log("clicou errado, quero o " + game.fm_nextToBeClicked);
 					};
 				});
@@ -186,6 +188,9 @@ for (i = 0; i < btns.length; i++) {
 			setTimeout(function(){
 				game.fm_init();
 			}, 600);
+
+			document.querySelector(".gameScreen").className = "gameScreen";
+			document.querySelector(".gameOverContainer").className = "gameOverContainer";
 
 			//Is going back to manu
 			var gameScreenNav = document.querySelector(".gameScreen nav");
