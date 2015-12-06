@@ -64,8 +64,6 @@ var flipmemo = function(){
 				if (barWidth == 0) {
 					clearInterval(decreaseBar);
 					game.fm_isInspecting = false;
-					game.fm_blockEventListener();
-					game.fm_nextToBeClicked = 1;
 					bar.className = "bar";
 					bar.style.width = 100 + "%";
 				};
@@ -95,6 +93,9 @@ var flipmemo = function(){
 						for (i = 0; i < blocks.length; i++) {
 							blocks[i].className = "block";
 						}
+						// Add the event click
+						game.fm_blockEventListener();
+						game.fm_nextToBeClicked = 1;
 					};
 				}, 600);
 			}else if (animation == "cascade"){
@@ -110,6 +111,8 @@ var flipmemo = function(){
 
 			for (i = 0; i < blocks.length; i++) {
 				blocks[i].addEventListener("click", function(){
+					// Detects click and checks its card number
+					this.className = "block hover";
 					this.getAttribute("data-card-number");
 					if (this.getAttribute("data-card-number") == game.fm_nextToBeClicked) {
 						console.log("clicou correto");
