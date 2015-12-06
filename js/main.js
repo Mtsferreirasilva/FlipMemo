@@ -1,3 +1,48 @@
+// totalCards = Total of cards for the level
+// time = time for memorizing
+// animation = type of animation [all, cascade, checkerboard]
+
+var flipmemo = function(){
+	return {
+		// Available levels
+		fm_levels: {
+			1: {"totalCards": 4, "time": 6, animation: "all"},
+			2: {"totalCards": 4, "time": 4, animation: "all"},
+			3: {"totalCards": 6, "time": 6, animation: "all"},
+			4: {"totalCards": 6, "time": 4, animation: "all"},
+			5: {"totalCards": 6, "time": 4, animation: "checkerboard"}
+		},
+
+		// HTML of each block
+		fm_blockHTML: '<div class="block-item"><div class="block hover" data-card-number="{card-number}"><figure class="front"><span>{number}</span></figure><figure class="back"><span>Flip Memo</span></figure></div></div>',
+
+		// Shuffles an array
+		fm_shuffle: function(o){
+			for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+			return o;
+		},
+
+		// Creates a level HTML structure based on level and difficulty
+		fm_createLevel: function(level, difficulty){
+			var numbers = [];
+			for(var i = 1; i <= this.fm_levels[level].totalCards; i++){
+				numbers.push(i);
+			}
+			numbers = this.fm_shuffle(numbers);
+
+			var html_final = '';
+			for(var k = 0; k < numbers.length; k++){
+				html_final += this.fm_blockHTML.replace('{number}', numbers[k]).replace("{card-number}", numbers[k]);
+			}
+
+			document.querySelector(".gameScreen .block-container").innerHTML = html_final;
+		},
+	}
+};
+
+var game = new flipmemo();
+
+//Listeners for each button
 var btns = document.getElementsByTagName("button");
 for (i = 0; i < btns.length; i++) {
 	btns[i].addEventListener("click", function() {
@@ -13,6 +58,10 @@ for (i = 0; i < btns.length; i++) {
 			//Isn't going Scores screen
 			if (menuVal != "scores") {
 				document.getElementById("level-value").innerHTML = menuVal;
+				
+				//Creating a new array of numbers
+				game.fm_createLevel(1, menuVal);
+
 				setTimeout(function(){
 					var gameScreen = document.querySelector(".gameScreen");
 					gameScreen.className = "gameScreen";
