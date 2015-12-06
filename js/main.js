@@ -25,15 +25,27 @@ var flipmemo = function(){
 		// False = is not inspecting time; True = is inspecting time
 		fm_isInspecting: false,
 
+		fm_difficulty: "",
+
 		// Shuffles an array
 		fm_shuffle: function(o){
 			for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
 			return o;
 		},
 
+		// Initialization config
+		fm_init: function(){
+			this.fm_nextToBeClicked = 1;
+			this.fm_currentLevel = 1;
+			this.fm_isInspecting = false;
+			this.fm_difficulty = "";
+			document.querySelector(".gameScreen .progressbar .bar").className = "bar inspectingTime";
+		},
+
 		// Creates a level HTML structure based on level and difficulty
 		fm_createLevel: function(level, difficulty){
 			this.fm_currentLevel = level;
+			this.fm_difficulty = difficulty;
 
 			var numbers = [];
 			for(var i = 1; i <= this.fm_levels[level].totalCards; i++){
@@ -70,6 +82,9 @@ var flipmemo = function(){
 			}
 
 			var intervalTime = this.fm_levels[this.fm_currentLevel].intervalTime;
+			if (this.fm_difficulty == "hard") {
+				intervalTime = intervalTime / 2;
+			};
 			var decreaseBar = setInterval(loadingBar, intervalTime);
 			this.fm_animateCards();
 		},
@@ -116,6 +131,9 @@ var flipmemo = function(){
 					this.getAttribute("data-card-number");
 					if (this.getAttribute("data-card-number") == game.fm_nextToBeClicked) {
 						console.log("clicou correto");
+						if (game.fm_levels[game.fm_currentLevel].totalCards == game.fm_nextToBeClicked) {
+							console.log("Você ganhou");
+						}
 						game.fm_nextToBeClicked++;
 					}else{
 						console.log("clicou errado, quero o " + game.fm_nextToBeClicked);
@@ -146,7 +164,7 @@ for (i = 0; i < btns.length; i++) {
 				document.getElementById("level-value").innerHTML = menuVal;
 				
 				//Creating a new array of numbers
-				game.fm_createLevel(3, menuVal);
+				game.fm_createLevel(1, menuVal);
 
 				setTimeout(function(){
 					var gameScreen = document.querySelector(".gameScreen");
@@ -165,6 +183,10 @@ for (i = 0; i < btns.length; i++) {
 				//Is Scores screen
 			};
 		}else{
+			setTimeout(function(){
+				game.fm_init();
+			}, 600);
+
 			//Is going back to manu
 			var gameScreenNav = document.querySelector(".gameScreen nav");
 			gameScreenNav.className = "out";
