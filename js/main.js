@@ -8,9 +8,9 @@ var flipmemo = function(){
 		fm_levels: {
 			1: {"totalCards": 4, "intervalTime": 40, animation: "all"},
 			2: {"totalCards": 4, "intervalTime": 40, animation: "all"},
-			3: {"totalCards": 6, "intervalTime": 60, animation: "all"},
-			4: {"totalCards": 6, "intervalTime": 40, animation: "all"},
-			5: {"totalCards": 6, "intervalTime": 40, animation: "checkerboard"}
+			3: {"totalCards": 6, "intervalTime": 80, animation: "all"},
+			4: {"totalCards": 6, "intervalTime": 60, animation: "all"},
+			5: {"totalCards": 6, "intervalTime": 60, animation: "checkerboard"}
 		},
 
 		// HTML of each block
@@ -25,6 +25,7 @@ var flipmemo = function(){
 		// False = is not inspecting time; True = is inspecting time
 		fm_isInspecting: false,
 
+		// Selected difficulty
 		fm_difficulty: "",
 
 		// Shuffles an array
@@ -82,6 +83,9 @@ var flipmemo = function(){
 					game.fm_isInspecting = false;
 					bar.className = "bar";
 					bar.style.width = 100 + "%";
+					setTimeout(function(){
+						game.fm_playTime();
+					}, 500);
 				};
 			}
 
@@ -91,6 +95,28 @@ var flipmemo = function(){
 			};
 			var decreaseBar = setInterval(loadingBar, intervalTime);
 			this.fm_animateCards();
+		},
+
+		// Playing time
+		fm_playTime: function(){
+			var barWidth = 100;
+
+			function loadingBar(){
+				barWidth--;
+				var bar = document.querySelector(".gameScreen .progressbar .bar");
+				bar.style.width = barWidth + '%';
+				if (barWidth == 0) {
+					document.querySelector(".gameScreen").className = "gameScreen blur";
+					document.querySelector(".gameOverContainer").className = "gameOverContainer show";
+					game.fm_init();
+				}
+			}
+
+			var intervalTime = this.fm_levels[this.fm_currentLevel].intervalTime;
+			if (this.fm_difficulty == "hard") {
+				intervalTime = intervalTime / 2;
+			};
+			var decreaseBar = setInterval(loadingBar, intervalTime);
 		},
 
 		// Animates the cards
@@ -167,7 +193,7 @@ for (i = 0; i < btns.length; i++) {
 
 			var gameScreenBlocks = document.querySelector(".gameScreen .block-container");
 			gameScreenBlocks.className = "block-container out";
-			
+
 			setTimeout(function(){
 				game.fm_createLevel(game.fm_currentLevel + 1, game.fm_difficulty);
 				gameScreenBlocks.className = "block-container";
