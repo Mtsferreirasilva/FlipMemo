@@ -19,8 +19,10 @@ var flipmemo = function(){
 		// It says what is the next expected number to be clicked
 		fm_nextToBeClicked: 1,
 
+		// Current level playing
 		fm_currentLevel: 1,
 
+		// False = is not inspecting time; True = is inspecting time
 		fm_isInspecting: false,
 
 		// Shuffles an array
@@ -50,6 +52,7 @@ var flipmemo = function(){
 			}, 1000);
 		},
 
+		// Inspecting time progress bar and animation
 		fm_inspectingTime: function(){
 			var barWidth = 100;
 			this.fm_isInspecting = true;
@@ -73,6 +76,7 @@ var flipmemo = function(){
 			this.fm_animateCards();
 		},
 
+		// Animates the cards
 		fm_animateCards: function(){
 			var animation = this.fm_levels[this.fm_currentLevel].animation;
 
@@ -139,7 +143,7 @@ for (i = 0; i < btns.length; i++) {
 				document.getElementById("level-value").innerHTML = menuVal;
 				
 				//Creating a new array of numbers
-				game.fm_createLevel(1, menuVal);
+				game.fm_createLevel(3, menuVal);
 
 				setTimeout(function(){
 					var gameScreen = document.querySelector(".gameScreen");
