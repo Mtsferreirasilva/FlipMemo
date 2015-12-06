@@ -71,6 +71,49 @@ header{
 	}
 }
 
+.scoresScreen{
+	position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+	height: 100%;
+	padding: 20px;
+	-webkit-transform: translateX(0);
+	    -ms-transform: translateX(0);
+	        transform: translateX(0);
+	-webkit-transition: -webkit-transform 0.7s cubic-bezier(.68,.27,.49,1.35);
+	        transition: transform 0.7s cubic-bezier(.68,.27,.49,1.35);
+
+	&.out{
+		-webkit-transform: translateX(-100%);
+		    -ms-transform: translateX(-100%);
+		        transform: translateX(-100%);
+	}
+
+	h1{
+		font-size: 50px;
+		margin: 20px 0 10px;
+	}
+
+	p{
+		font-size: 30px;
+		margin: 10px 0 20px 0;
+
+		span{
+			font-weight: 700;
+		} 
+	}
+
+	button{
+		position: fixed;
+		bottom: 20px;
+		left: 50%;
+		-webkit-transform: translateX(-50%);
+		    -ms-transform: translateX(-50%);
+		        transform: translateX(-50%);
+	}
+}
+
 .gameScreen{
 	position: absolute;
     top: 0;
@@ -317,7 +360,7 @@ button{
 	}
 
 	&.back{
-		background-color: #FFF;
+		background-color: transparent;
 		color: inherit;
 		width: auto;
 	}

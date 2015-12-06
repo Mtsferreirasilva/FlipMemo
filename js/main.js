@@ -1,3 +1,5 @@
+var flipmemo_data;
+
 // totalCards = Total of cards for the level
 // intervalTime = time for memorizing - (value * 100) miliseconds
 // animation = type of animation [all, cascade, checkerboard]
@@ -188,6 +190,17 @@ var flipmemo = function(){
 						setTimeout(function(){
 							game.fm_init();
 						}, 100);
+						if(game.fm_difficulty == "normal"){
+							if(game.fm_currentLevel > flipmemo_data.normal){
+								flipmemo_data.normal = flipmemo_data.normal + 1;
+								updateLocalStorage(flipmemo_data);
+							}
+						}else{
+							if(game.fm_currentLevel > flipmemo_data.normal){
+								flipmemo_data.hard = flipmemo_data.hard + 1;
+								updateLocalStorage(flipmemo_data);
+							}
+						}
 					};
 				});
 			}
@@ -243,12 +256,16 @@ for (i = 0; i < btns.length; i++) {
 					gameScreenBar.className = "progressbar";
 				}, 300);
 			}else{
-				//Is Scores screen
+				document.querySelector(".scoresScreen").className = "scoresScreen";
 			};
 		}else{
+			readLocalStorage();
+			
 			setTimeout(function(){
 				game.fm_init();
 			}, 600);
+
+			document.querySelector(".scoresScreen").className = "scoresScreen out";
 
 			document.querySelector(".gameScreen").className = "gameScreen";
 			document.querySelector(".gameOverContainer").className = "gameOverContainer";
@@ -291,3 +308,19 @@ for (i = 0; i < btns.length; i++) {
 		};
 	});
 }
+
+// Gets data from Local Storage about user's best scores
+function readLocalStorage(){
+	flipmemo_data = JSON.parse(localStorage.getItem("flipmemo"));
+	if (flipmemo_data == null) {
+		flipmemo_data = {"normal": 0, "hard": 0};
+	}
+	document.getElementById('bestNormal').innerHTML = flipmemo_data.normal;
+	document.getElementById('bestHard').innerHTML = flipmemo_data.hard;
+}
+
+function updateLocalStorage(flipmemo_data){
+	localStorage.setItem("flipmemo", JSON.stringify(flipmemo_data));
+}
+
+readLocalStorage();
