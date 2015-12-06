@@ -39,11 +39,14 @@ var flipmemo = function(){
 			this.fm_currentLevel = 1;
 			this.fm_isInspecting = false;
 			this.fm_difficulty = "";
+			document.querySelector("#level span").innerHTML = this.fm_currentLevel;
 			document.querySelector(".gameScreen .progressbar .bar").className = "bar inspectingTime";
 		},
 
 		// Creates a level HTML structure based on level and difficulty
 		fm_createLevel: function(level, difficulty){
+			console.log(level);
+			console.log(difficulty);
 			this.fm_currentLevel = level;
 			this.fm_difficulty = difficulty;
 
@@ -58,6 +61,7 @@ var flipmemo = function(){
 				html_final += this.fm_blockHTML.replace('{number}', numbers[k]).replace("{card-number}", numbers[k]);
 			}
 
+			document.querySelector(".gameScreen .progressbar .bar").className = "bar inspectingTime";
 			document.querySelector(".gameScreen .block-container").innerHTML = html_final;
 			setTimeout(function(){
 				game.fm_inspectingTime();
@@ -133,11 +137,14 @@ var flipmemo = function(){
 						console.log("clicou correto");
 						if (game.fm_levels[game.fm_currentLevel].totalCards == game.fm_nextToBeClicked) {
 							console.log("Você ganhou");
+							document.querySelector(".gameScreen").className = "gameScreen blur";
+							document.querySelector(".nextLevelContainer").className = "nextLevelContainer show";
 						}
 						game.fm_nextToBeClicked++;
 					}else{
 						document.querySelector(".gameScreen").className = "gameScreen blur";
 						document.querySelector(".gameOverContainer").className = "gameOverContainer show";
+						game.fm_init();
 						console.log("clicou errado, quero o " + game.fm_nextToBeClicked);
 					};
 				});
@@ -154,8 +161,20 @@ for (i = 0; i < btns.length; i++) {
 	btns[i].addEventListener("click", function() {
 		var menuVal = this.getAttribute("data-value");
 
-		//Isn't going back
-		if (menuVal != "back") {
+		if (menuVal == "next"){
+			document.querySelector(".gameScreen").className = "gameScreen";
+			document.querySelector(".nextLevelContainer").className = "nextLevelContainer";
+
+			var gameScreenBlocks = document.querySelector(".gameScreen .block-container");
+			gameScreenBlocks.className = "block-container out";
+			
+			setTimeout(function(){
+				game.fm_createLevel(game.fm_currentLevel + 1, game.fm_difficulty);
+				gameScreenBlocks.className = "block-container";
+				document.querySelector("#level span").innerHTML = game.fm_currentLevel;
+			}, 600);
+		}else if (menuVal != "back") {
+			//Isn't going back
 			var mainTop = document.querySelector(".mainTop");
 			mainTop.className = mainTop.className + " out";
 			var mainBottom = document.querySelector(".mainBottom");
