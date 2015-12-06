@@ -171,6 +171,8 @@ header {
       height: 8px;
       margin: auto;
       background-color: #FF5252; }
+      .gameScreen .progressbar .bar.inspectingTime {
+        background-color: #2196F3; }
 
 footer {
   text-align: center;

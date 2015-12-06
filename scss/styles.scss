@@ -229,6 +229,10 @@ header{
 			height: 8px;
 			margin: auto;
 			background-color: $red;
+
+			&.inspectingTime{
+				background-color: $blue;
+			}
 		}
 	}
 }
