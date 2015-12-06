@@ -7,9 +7,9 @@ var flipmemo = function(){
 		// Available levels
 		fm_levels: {
 			1: {"totalCards": 4, "intervalTime": 40, animation: "all"},
-			2: {"totalCards": 4, "intervalTime": 40, animation: "all"},
-			3: {"totalCards": 6, "intervalTime": 80, animation: "all"},
-			4: {"totalCards": 6, "intervalTime": 60, animation: "all"},
+			2: {"totalCards": 4, "intervalTime": 30, animation: "all"},
+			3: {"totalCards": 6, "intervalTime": 60, animation: "all"},
+			4: {"totalCards": 6, "intervalTime": 40, animation: "all"},
 			5: {"totalCards": 6, "intervalTime": 60, animation: "checkerboard"}
 		},
 
@@ -28,6 +28,12 @@ var flipmemo = function(){
 		// Selected difficulty
 		fm_difficulty: "",
 
+		// Checks if level has been completed
+		fm_levelCleared: false,
+
+		// Level failed
+		fm_levelFailed: false,
+
 		// Shuffles an array
 		fm_shuffle: function(o){
 			for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
@@ -40,14 +46,15 @@ var flipmemo = function(){
 			this.fm_currentLevel = 1;
 			this.fm_isInspecting = false;
 			this.fm_difficulty = "";
+			this.fm_levelCleared = false;
+			this.fm_levelFailed = false;
 			document.querySelector("#level span").innerHTML = this.fm_currentLevel;
 			document.querySelector(".gameScreen .progressbar .bar").className = "bar inspectingTime";
 		},
 
 		// Creates a level HTML structure based on level and difficulty
 		fm_createLevel: function(level, difficulty){
-			console.log(level);
-			console.log(difficulty);
+			this.fm_levelCleared = false;
 			this.fm_currentLevel = level;
 			this.fm_difficulty = difficulty;
 
@@ -62,7 +69,9 @@ var flipmemo = function(){
 				html_final += this.fm_blockHTML.replace('{number}', numbers[k]).replace("{card-number}", numbers[k]);
 			}
 
-			document.querySelector(".gameScreen .progressbar .bar").className = "bar inspectingTime";
+			var progressVar = document.querySelector(".gameScreen .progressbar .bar");
+			progressVar.className = "bar inspectingTime";
+			progressVar.style.width = 100 + "%";
 			document.querySelector(".gameScreen .block-container").innerHTML = html_final;
 			setTimeout(function(){
 				game.fm_inspectingTime();
@@ -97,7 +106,7 @@ var flipmemo = function(){
 			this.fm_animateCards();
 		},
 
-		// Playing time
+		// Playing time 
 		fm_playTime: function(){
 			var barWidth = 100;
 
@@ -105,7 +114,11 @@ var flipmemo = function(){
 				barWidth--;
 				var bar = document.querySelector(".gameScreen .progressbar .bar");
 				bar.style.width = barWidth + '%';
+				if (game.fm_levelCleared || game.fm_levelFailed) {
+					clearInterval(decreaseBar);
+				};
 				if (barWidth == 0) {
+					clearInterval(decreaseBar);
 					document.querySelector(".gameScreen").className = "gameScreen blur";
 					document.querySelector(".gameOverContainer").className = "gameOverContainer show";
 					game.fm_init();
@@ -160,18 +173,21 @@ var flipmemo = function(){
 					this.className = "block hover";
 					this.getAttribute("data-card-number");
 					if (this.getAttribute("data-card-number") == game.fm_nextToBeClicked) {
-						console.log("clicou correto");
 						if (game.fm_levels[game.fm_currentLevel].totalCards == game.fm_nextToBeClicked) {
-							console.log("Você ganhou");
+							// Won level
+							game.fm_levelCleared = true;
 							document.querySelector(".gameScreen").className = "gameScreen blur";
 							document.querySelector(".nextLevelContainer").className = "nextLevelContainer show";
 						}
 						game.fm_nextToBeClicked++;
 					}else{
+						// Lost level
+						game.fm_levelFailed = true;
 						document.querySelector(".gameScreen").className = "gameScreen blur";
 						document.querySelector(".gameOverContainer").className = "gameOverContainer show";
-						game.fm_init();
-						console.log("clicou errado, quero o " + game.fm_nextToBeClicked);
+						setTimeout(function(){
+							game.fm_init();
+						}, 100);
 					};
 				});
 			}
