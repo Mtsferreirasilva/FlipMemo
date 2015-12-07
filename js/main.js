@@ -276,8 +276,9 @@ for (i = 0; i < btns.length; i++) {
 			var gameScreenBlocks = document.querySelector(".gameScreen .block-container");
 			gameScreenBlocks.className = "block-container out";
 
+			game.fm_currentLevel = game.fm_currentLevel  + 1;
 			setTimeout(function(){
-				game.fm_createLevel(game.fm_currentLevel + 1, game.fm_difficulty);
+				game.fm_createLevel(game.fm_currentLevel, game.fm_difficulty);
 				gameScreenBlocks.className = "block-container";
 				document.querySelector("#level span").innerHTML = game.fm_currentLevel;
 			}, 600);
