@@ -18,6 +18,10 @@ main {
   max-width: 500px;
   margin: auto;
   overflow: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0); }
 
@@ -42,15 +46,13 @@ main {
   width: 100%;
   position: fixed;
   bottom: 0;
-  -webkit-transform: translateY(0);
-  -ms-transform: translateY(0);
-  transform: translateY(0);
+  -webkit-transform: translateY(0) translateZ(0);
+  transform: translateY(0) translateZ(0);
   -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.37, -0.35, 0.56, 1);
   transition: transform 0.5s cubic-bezier(0.37, -0.35, 0.56, 1); }
   .mainBottom.out {
-    -webkit-transform: translateY(100%);
-    -ms-transform: translateY(100%);
-    transform: translateY(100%); }
+    -webkit-transform: translateY(100%) translateZ(0);
+    transform: translateY(100%) translateZ(0); }
 
 .scoresScreen {
   position: absolute;
@@ -59,15 +61,13 @@ main {
   right: 0;
   height: 100%;
   padding: 20px;
-  -webkit-transform: translateX(0);
-  -ms-transform: translateX(0);
-  transform: translateX(0);
+  -webkit-transform: translateX(0) translateZ(0);
+  transform: translateX(0) translateZ(0);
   -webkit-transition: -webkit-transform 0.7s cubic-bezier(0.68, 0.27, 0.49, 1.35);
   transition: transform 0.7s cubic-bezier(0.68, 0.27, 0.49, 1.35); }
   .scoresScreen.out {
-    -webkit-transform: translateX(-100%);
-    -ms-transform: translateX(-100%);
-    transform: translateX(-100%); }
+    -webkit-transform: translateX(-100%) translateZ(0);
+    transform: translateX(-100%) translateZ(0); }
   .scoresScreen h1 {
     font-size: 50px;
     margin: 20px 0 10px; }
@@ -80,9 +80,8 @@ main {
     position: fixed;
     bottom: 20px;
     left: 50%;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%); }
+    -webkit-transform: translateX(-50%) translateZ(0);
+    transform: translateX(-50%) translateZ(0); }
 
 .gameScreen {
   position: absolute;
@@ -91,9 +90,8 @@ main {
   right: 0;
   height: 100%;
   padding: 20px;
-  -webkit-transform: translateX(0);
-  -ms-transform: translateX(0);
-  transform: translateX(0);
+  -webkit-transform: translateX(0) translateZ(0);
+  transform: translateX(0) translateZ(0);
   -webkit-transition: all .01s ease-in;
   transition: all .01s ease-in;
   -webkit-filter: blur(0);
@@ -102,22 +100,19 @@ main {
     -webkit-filter: blur(3px);
     filter: blur(3px); }
   .gameScreen.out {
-    -webkit-transform: translateX(-100%);
-    -ms-transform: translateX(-100%);
-    transform: translateX(-100%); }
+    -webkit-transform: translateX(-100%) translateZ(0);
+    transform: translateX(-100%) translateZ(0); }
   .gameScreen nav {
     text-transform: uppercase;
     font-size: 30px;
     margin-bottom: 10px;
     -webkit-transition: -webkit-transform 0.6s cubic-bezier(0.68, 0.27, 0.49, 1.35);
     transition: transform 0.6s cubic-bezier(0.68, 0.27, 0.49, 1.35);
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0); }
+    -webkit-transform: translateY(0) translateZ(0);
+    transform: translateY(0) translateZ(0); }
     .gameScreen nav.out {
-      -webkit-transform: translateY(-150%);
-      -ms-transform: translateY(-150%);
-      transform: translateY(-150%); }
+      -webkit-transform: translateY(-150%) translateZ(0);
+      transform: translateY(-150%) translateZ(0); }
     .gameScreen nav #level {
       float: right; }
       .gameScreen nav #level span {
@@ -136,15 +131,13 @@ main {
     height: calc(100% - 70px);
     margin-left: -10px;
     margin-right: -10px;
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
+    -webkit-transform: translateX(0) translateZ(0);
+    transform: translateX(0) translateZ(0);
     -webkit-transition: -webkit-transform 0.6s cubic-bezier(0.68, 0.27, 0.49, 1.35);
     transition: transform 0.6s cubic-bezier(0.68, 0.27, 0.49, 1.35); }
     .gameScreen .block-container.out {
-      -webkit-transform: translateX(-100%);
-      -ms-transform: translateX(-100%);
-      transform: translateX(-100%); }
+      -webkit-transform: translateX(-100%) translateZ(0);
+      transform: translateX(-100%) translateZ(0); }
     .gameScreen .block-container .block-item {
       width: 50%;
       border: 10px solid transparent;
@@ -189,9 +182,8 @@ main {
             display: block;
             font-size: 100px;
             top: 50%;
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            transform: translateY(-50%); }
+            -webkit-transform: translateY(-50%) translateZ(0);
+            transform: translateY(-50%) translateZ(0); }
   .gameScreen .progressbar {
     position: fixed;
     bottom: 20px;
@@ -200,14 +192,12 @@ main {
     opacity: 1;
     -webkit-transition: all 0.6s cubic-bezier(0.68, 0.27, 0.49, 1.35);
     transition: all 0.6s cubic-bezier(0.68, 0.27, 0.49, 1.35);
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0); }
+    -webkit-transform: translateY(0) translateZ(0);
+    transform: translateY(0) translateZ(0); }
     .gameScreen .progressbar.out {
       opacity: 0;
-      -webkit-transform: translateY(150%);
-      -ms-transform: translateY(150%);
-      transform: translateY(150%); }
+      -webkit-transform: translateY(150%) translateZ(0);
+      transform: translateY(150%) translateZ(0); }
     .gameScreen .progressbar .bar {
       width: 100%;
       height: 8px;
@@ -243,9 +233,8 @@ main {
     padding: 10px;
     text-align: center;
     border-radius: 4px;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%); }
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0); }
     .gameOverContainer .gameOver p,
     .gameOverContainer .nextLevel p,
     .nextLevelContainer .gameOver p,
