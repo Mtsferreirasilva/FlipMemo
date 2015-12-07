@@ -2,7 +2,7 @@ var flipmemo_data;
 
 // totalCards = Total of cards for the level
 // intervalTime = time for memorizing - (value * 100) miliseconds
-// animation = type of animation [all, cascade, checkerboard]
+// animation = type of animation
 
 var flipmemo = function(){
 	return {
@@ -10,9 +10,14 @@ var flipmemo = function(){
 		fm_levels: {
 			1: {"totalCards": 4, "intervalTime": 40, animation: "all"},
 			2: {"totalCards": 4, "intervalTime": 30, animation: "all"},
-			3: {"totalCards": 6, "intervalTime": 60, animation: "all"},
-			4: {"totalCards": 6, "intervalTime": 40, animation: "all"},
-			5: {"totalCards": 6, "intervalTime": 60, animation: "checkerboard"}
+			3: {"totalCards": 4, "intervalTime": 40, animation: "sides"},
+			4: {"totalCards": 6, "intervalTime": 60, animation: "all"},
+			5: {"totalCards": 6, "intervalTime": 40, animation: "all"},
+			6: {"totalCards": 6, "intervalTime": 60, animation: "sides"},
+			7: {"totalCards": 6, "intervalTime": 100, animation: "rotate"},
+			8: {"totalCards": 8, "intervalTime": 80, animation: "all"},
+			9: {"totalCards": 8, "intervalTime": 80, animation: "sides"},
+			10: {"totalCards": 8, "intervalTime": 120, animation: "rotate"}
 		},
 
 		// HTML of each block
@@ -158,10 +163,57 @@ var flipmemo = function(){
 						game.fm_nextToBeClicked = 1;
 					};
 				}, 600);
-			}else if (animation == "cascade"){
-
-			}else if (animation == "checkerboard"){
-
+			}else if (animation == "rotate"){
+				var allAnimation = setInterval(function(){
+					var blocks = document.querySelectorAll(".block");
+					for (i = 0; i < blocks.length; i++) {
+						if(blocks[i].className == "block"){
+							blocks[i].className = blocks[i].className + " hover";
+						}else if (blocks[i].className == "block hover"){
+							blocks[i].className = blocks[i].className + " rotated";
+						}else{
+							blocks[i].className = "block";
+						}
+					}
+					if (!game.fm_isInspecting) {
+						clearInterval(allAnimation);
+						for (i = 0; i < blocks.length; i++) {
+							blocks[i].className = "block";
+						}
+						// Add the event click
+						game.fm_blockEventListener();
+						game.fm_nextToBeClicked = 1;
+					};
+				}, 600);
+			}else if (animation == "sides"){
+				var allAnimation = setInterval(function(){
+					var blocks = document.querySelectorAll(".block");
+					for (i = 0; i < blocks.length; i = i + 2) {
+						if(blocks[i].className == "block"){
+							blocks[i].className = blocks[i].className + " hover";
+						}else{
+							blocks[i].className = "block";
+						}
+					}
+					setTimeout(function(){
+						for (i = 1; i < blocks.length; i = i + 2) {
+							if(blocks[i].className == "block"){
+								blocks[i].className = blocks[i].className + " hover";
+							}else{
+								blocks[i].className = "block";
+							}
+						}
+					}, 600);
+					if (!game.fm_isInspecting) {
+						clearInterval(allAnimation);
+						for (i = 0; i < blocks.length; i++) {
+							blocks[i].className = "block";
+						}
+						// Add the event click
+						game.fm_blockEventListener();
+						game.fm_nextToBeClicked = 1;
+					};
+				}, 600);
 			};
 		},
 
@@ -190,6 +242,7 @@ var flipmemo = function(){
 						setTimeout(function(){
 							game.fm_init();
 						}, 100);
+						// Updates local storage
 						if(game.fm_difficulty == "normal"){
 							if(game.fm_currentLevel > flipmemo_data.normal){
 								flipmemo_data.normal = flipmemo_data.normal + 1;

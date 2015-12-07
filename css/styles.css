@@ -160,6 +160,9 @@ main {
         .gameScreen .block-container .block-item .block.hover {
           -webkit-transform: rotate3d(0, 1, 0, 0deg);
           transform: rotate3d(0, 1, 0, 0deg); }
+        .gameScreen .block-container .block-item .block.rotated {
+          -webkit-transform: rotate3d(1, 0, 0, 180deg);
+          transform: rotate3d(1, 0, 0, 180deg); }
         .gameScreen .block-container .block-item .block figure {
           margin: 0;
           display: block;
