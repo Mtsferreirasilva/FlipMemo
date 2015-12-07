@@ -6,12 +6,13 @@
 
 body {
   font-family: "Quicksand";
-  background-color: #FFFFFF;
+  background-color: #455A64;
   color: #455A64;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased; }
 
 main {
+  background-color: #FFFFFF;
   position: relative;
   height: 100vh;
   max-width: 500px;
@@ -20,25 +21,22 @@ main {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0); }
 
-header {
+.mainTop {
+  -webkit-transition: all 0.5s cubic-bezier(0.37, -0.35, 0.56, 1);
+  transition: all 0.5s cubic-bezier(0.37, -0.35, 0.56, 1);
   text-align: center;
-  padding-top: 25%; }
-  header .brand {
+  margin-top: 100px; }
+  .mainTop .brand {
     display: block;
     font-size: 56px;
     padding: 5px 0;
-    font-weight: 700; }
-
-.mainTop {
-  -webkit-transform: translateY(0);
-  -ms-transform: translateY(0);
-  transform: translateY(0);
-  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.37, -0.35, 0.56, 1);
-  transition: transform 0.5s cubic-bezier(0.37, -0.35, 0.56, 1); }
+    font-weight: 700;
+    -webkit-transition: all 0.5s cubic-bezier(0.37, -0.35, 0.56, 1);
+    transition: all 0.5s cubic-bezier(0.37, -0.35, 0.56, 1); }
   .mainTop.out {
-    -webkit-transform: translateY(-100%);
-    -ms-transform: translateY(-100%);
-    transform: translateY(-100%); }
+    margin-top: -100px; }
+    .mainTop.out .brand {
+      font-size: 20px; }
 
 .mainBottom {
   width: 100%;
@@ -162,11 +160,13 @@ header {
         transition: transform 0.6s;
         width: 100%;
         height: 100%;
-        -webkit-transform: rotateY(-180deg);
-        transform: rotateY(-180deg); }
+        -webkit-transform: rotate3d(0, 1, 0, 180deg);
+        transform: rotate3d(0, 1, 0, 180deg); }
+        .gameScreen .block-container .block-item .block:hover {
+          cursor: pointer; }
         .gameScreen .block-container .block-item .block.hover {
-          -webkit-transform: rotateY(0deg);
-          transform: rotateY(0deg); }
+          -webkit-transform: rotate3d(0, 1, 0, 0deg);
+          transform: rotate3d(0, 1, 0, 0deg); }
         .gameScreen .block-container .block-item .block figure {
           margin: 0;
           display: block;
@@ -179,8 +179,8 @@ header {
             background: #CFD8DC; }
           .gameScreen .block-container .block-item .block figure.back {
             background: #607D8B;
-            -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg); }
+            -webkit-transform: rotate3d(0, 1, 0, 180deg);
+            transform: rotate3d(0, 1, 0, 180deg); }
             .gameScreen .block-container .block-item .block figure.back span {
               font-size: 20px;
               color: rgba(255, 255, 255, 0.4); }

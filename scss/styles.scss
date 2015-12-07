@@ -11,7 +11,7 @@
 
 body{
 	font-family: "Quicksand";
-	background-color: $background;
+	background-color: $base-color;
 	color: $base-color;
 
 	text-rendering: optimizeLegibility;
@@ -19,6 +19,7 @@ body{
 }
 
 main{
+	background-color: $background;
 	position: relative;
 	height: 100vh;
 	max-width: 500px;
@@ -28,30 +29,29 @@ main{
 	        transform: translate3d(0, 0, 0);
 }
 
-header{
+.mainTop{
+    -webkit-transition: all 0.5s cubic-bezier(.37,-0.35,.56,1);
+            transition: all 0.5s cubic-bezier(.37,-0.35,.56,1);
+
 	text-align: center;
-	padding-top: 25%;
+	margin-top: 100px;
 
 	.brand{
 		display: block;
 		font-size: 56px;
 		padding: 5px 0;
 		font-weight: 700;
+
+		-webkit-transition: all 0.5s cubic-bezier(.37,-0.35,.56,1);
+		        transition: all 0.5s cubic-bezier(.37,-0.35,.56,1);
 	}
-}
-
-.mainTop{
-	-webkit-transform: translateY(0);
-	    -ms-transform: translateY(0);
-	        transform: translateY(0);
-
-	-webkit-transition: -webkit-transform 0.5s cubic-bezier(.37,-0.35,.56,1);
-	        transition: transform 0.5s cubic-bezier(.37,-0.35,.56,1);
 
 	&.out{
-		-webkit-transform: translateY(-100%);
-		    -ms-transform: translateY(-100%);
-		        transform: translateY(-100%);		
+		margin-top: -100px;
+
+		.brand{
+			font-size: 20px;
+		}
 	}
 }
 
@@ -213,12 +213,18 @@ header{
 				width: 100%;
 				height: 100%;
 
-				-webkit-transform: rotateY(-180deg);
-					    transform: rotateY(-180deg);
+				//RotateY
+				-webkit-transform: rotate3d(0,1,0,180deg);
+						transform: rotate3d(0,1,0,180deg);
+
+				&:hover{
+					cursor: pointer;
+				}
 
 				&.hover{
-					-webkit-transform: rotateY(0deg);
-					        transform: rotateY(0deg);
+					//RotateY
+					-webkit-transform: rotate3d(0,1,0,0deg);
+							transform: rotate3d(0,1,0,0deg);
 				}
 
 				figure{
@@ -237,8 +243,9 @@ header{
 
 					&.back{
 						background: $block-back;
-						-webkit-transform: rotateY(180deg);
-						        transform: rotateY(180deg);
+										//RotateY
+						-webkit-transform: rotate3d(0,1,0,180deg);
+								transform: rotate3d(0,1,0,180deg);
 
 						span{
 							font-size: 20px;
