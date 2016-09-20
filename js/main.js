@@ -1,5 +1,5 @@
 var flipmemo_data;
-
+// inserting another comment because...yes lol
 // totalCards = Total of cards for the level
 // intervalTime = time for memorizing - (value * 100) miliseconds
 // animation = type of animation
